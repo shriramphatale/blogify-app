@@ -33,5 +33,5 @@ app.get('/',async (req,res)=>{
 
 app.use('/user', userRoute)
 app.use('/blog', blogRoute)
-
-app.listen(PORT,()=>{ console.log(`server started at ${PORT}`) })
+console.log("ENV PORT:", process.env.PORT);
+app.listen(PORT,'0.0.0.0',()=>{ console.log(`server started at ${PORT}`) })
