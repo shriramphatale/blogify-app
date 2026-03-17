@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
@@ -14,9 +12,6 @@ const { checkForAuthenticationCookie } = require('./middlewares/authentication')
 
 const app = express()
 const PORT = process.env.PORT || 8000
-
-mongoose.connect(process.env.MONGO_URL).then(e => console.log('MongoDB Connected')
-)
 
 app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
@@ -34,4 +29,14 @@ app.get('/',async (req,res)=>{
 app.use('/user', userRoute)
 app.use('/blog', blogRoute)
 console.log("ENV PORT:", process.env.PORT);
-app.listen(PORT,'0.0.0.0',()=>{ console.log(`server started at ${PORT}`) })
+
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => {
+        console.log('MongoDB Connected');
+        app.listen(PORT, '0.0.0.0', () => { 
+            console.log(`Server started at ${PORT}`); 
+        });
+    })
+    .catch((err) => {
+        console.error('MongoDB Connection Error:', err);
+    });
