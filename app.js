@@ -30,12 +30,13 @@ app.use('/user', userRoute)
 app.use('/blog', blogRoute)
 console.log("ENV PORT:", process.env.PORT);
 
+app.listen(PORT, '0.0.0.0', () => { 
+    console.log(`Server started at ${PORT}`); 
+});
+
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         console.log('MongoDB Connected');
-        app.listen(PORT, '0.0.0.0', () => { 
-            console.log(`Server started at ${PORT}`); 
-        });
     })
     .catch((err) => {
         console.error('MongoDB Connection Error:', err);
