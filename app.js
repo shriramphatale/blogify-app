@@ -22,8 +22,9 @@ app.use(checkForAuthenticationCookie('token'))
 app.use(express.static(path.resolve("./public")))
 
 app.get('/',async (req,res)=>{
-    const allBlogs = await Blog.find({}).sort({ createdAt: -1 })
-    res.render('home',{user: req.user, blogs: allBlogs})
+    // const allBlogs = await Blog.find({}).sort({ createdAt: -1 })
+    // res.render('home',{user: req.user, blogs: allBlogs})
+    res.send("Heloo world")
 })
 
 app.use('/user', userRoute)
